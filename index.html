@@ -37,12 +37,15 @@ body{-webkit-font-smoothing:antialiased}
 
 /* ============ STAGE ============ */
 #stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+.slide{min-height:0}
 .slide{
   position:absolute;width:100%;height:100%;
   display:none;flex-direction:column;
-  padding:5.2vh 6vw 9vh;
+  /* top right bottom left — bottom clears the fixed nav bar (56px) */
+  padding:clamp(20px,4.4vh,46px) clamp(28px,6vw,90px) clamp(74px,9vh,96px);
   background:var(--page);
   opacity:0;
+  overflow:hidden;
 }
 .slide.active{display:flex;opacity:1;animation:slideIn .6s cubic-bezier(.2,.7,.2,1)}
 @keyframes slideIn{from{opacity:0;transform:translateY(24px) scale(.99)}to{opacity:1;transform:none}}
@@ -58,11 +61,11 @@ body{-webkit-font-smoothing:antialiased}
 .dh-logo{height:clamp(36px,4.8vh,56px);width:auto}
 .slide.dark .dh-logo{filter:drop-shadow(0 2px 10px rgba(0,0,0,.35))}
 
-.slide-body{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;min-height:0}
+.slide-body{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;min-height:0;overflow:hidden}
 
 /* bottom banner */
 .banner{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;
-  position:absolute;left:6vw;right:6vw;bottom:3.4vh}
+  margin-top:clamp(14px,2.4vh,28px)}
 .lozenge{display:inline-flex;align-items:center;gap:8px;background:var(--teal);color:#fff;
   font-size:clamp(9px,.95vw,12px);font-weight:700;letter-spacing:.13em;text-transform:uppercase;
   padding:7px 15px;border-radius:999px;box-shadow:0 4px 14px rgba(31,174,151,.35)}
@@ -73,12 +76,12 @@ body{-webkit-font-smoothing:antialiased}
 .slide-num{font-size:12px;font-weight:600;color:var(--subtle)}
 
 /* ============ TYPOGRAPHY ============ */
-.h1{font-size:clamp(34px,5.6vw,84px);font-weight:800;line-height:1.04;letter-spacing:-.02em}
-.h2{font-size:clamp(28px,4vw,56px);font-weight:800;line-height:1.06;letter-spacing:-.015em}
-.h3{font-size:clamp(20px,2.3vw,34px);font-weight:700;line-height:1.1}
-.lead{font-size:clamp(16px,1.7vw,24px);font-weight:400;line-height:1.5;color:var(--muted);max-width:60ch}
+.h1{font-size:clamp(30px,min(5.6vw,8.4vh),84px);font-weight:800;line-height:1.04;letter-spacing:-.02em}
+.h2{font-size:clamp(24px,min(4vw,6.2vh),56px);font-weight:800;line-height:1.06;letter-spacing:-.015em}
+.h3{font-size:clamp(18px,min(2.3vw,3.6vh),34px);font-weight:700;line-height:1.1}
+.lead{font-size:clamp(14px,min(1.7vw,2.7vh),24px);font-weight:400;line-height:1.5;color:var(--muted);max-width:60ch}
 .slide.dark .lead{color:rgba(255,255,255,.9)}
-.standfirst{font-size:clamp(16px,1.9vw,26px);font-weight:600;line-height:1.35;max-width:54ch}
+.standfirst{font-size:clamp(14px,min(1.9vw,3vh),26px);font-weight:600;line-height:1.35;max-width:54ch}
 
 .teal-text{color:var(--teal-deep)}
 .fade{opacity:0;animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
@@ -89,23 +92,23 @@ body{-webkit-font-smoothing:antialiased}
 /* ============ TITLE SLIDE ============ */
 .cover .slide-body{justify-content:center;align-items:flex-start}
 .cover .h1{max-width:18ch}
-.cover-tag{margin-top:auto;font-style:italic;font-weight:500;font-size:clamp(15px,1.6vw,22px);
+.cover-tag{margin-top:auto;font-style:italic;font-weight:500;font-size:clamp(13px,min(1.6vw,2.5vh),22px);
   color:rgba(255,255,255,.92);letter-spacing:.01em}
-.cover-sub{font-size:clamp(16px,1.9vw,26px);font-weight:500;color:rgba(255,255,255,.92);max-width:46ch;margin-top:18px}
+.cover-sub{font-size:clamp(14px,min(1.9vw,3vh),26px);font-weight:500;color:rgba(255,255,255,.92);max-width:46ch;margin-top:18px}
 .orb{position:absolute;border-radius:50%;filter:blur(2px);pointer-events:none}
 
 /* ============ CARDS / GRID ============ */
-.grid{display:grid;gap:clamp(14px,1.6vw,26px)}
+.grid{display:grid;gap:clamp(12px,min(1.6vw,2.2vh),26px)}
 .g2{grid-template-columns:1fr 1fr}
 .g3{grid-template-columns:repeat(3,1fr)}
-.card{background:#fff;border:1px solid var(--hairline);border-radius:18px;padding:clamp(18px,2.1vw,30px);
+.card{background:#fff;border:1px solid var(--hairline);border-radius:18px;padding:clamp(14px,min(2.1vw,3vh),30px);
   box-shadow:0 10px 30px rgba(16,40,80,.06);position:relative;overflow:hidden}
 .card .ico{width:clamp(42px,4vw,58px);height:clamp(42px,4vw,58px);border-radius:14px;display:flex;
   align-items:center;justify-content:center;background:var(--grad-soft);margin-bottom:16px;
   box-shadow:0 8px 20px rgba(31,174,151,.3)}
 .card .ico svg{width:55%;height:55%;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-.card h4{font-size:clamp(17px,1.7vw,23px);font-weight:700;margin-bottom:8px;line-height:1.15}
-.card p{font-size:clamp(13px,1.25vw,17px);color:var(--muted);line-height:1.5}
+.card h4{font-size:clamp(15px,min(1.7vw,2.7vh),23px);font-weight:700;margin-bottom:8px;line-height:1.15}
+.card p{font-size:clamp(12px,min(1.25vw,2vh),17px);color:var(--muted);line-height:1.5}
 .card .edge{position:absolute;top:0;left:0;width:5px;height:100%;background:var(--grad-soft)}
 
 /* numbered list rows (agenda) */
@@ -116,7 +119,7 @@ body{-webkit-font-smoothing:antialiased}
 .row .n{flex:0 0 auto;width:clamp(34px,3.4vw,46px);height:clamp(34px,3.4vw,46px);border-radius:11px;
   background:var(--grad-soft);color:#fff;font-weight:800;font-size:clamp(15px,1.5vw,21px);
   display:flex;align-items:center;justify-content:center}
-.row .lbl{flex:1;font-size:clamp(15px,1.6vw,22px);font-weight:600}
+.row .lbl{flex:1;font-size:clamp(13px,min(1.6vw,2.5vh),22px);font-weight:600}
 .row .min{flex:0 0 auto;font-size:clamp(12px,1.2vw,16px);font-weight:700;color:var(--teal-deep);
   background:rgba(31,174,151,.1);padding:5px 12px;border-radius:999px}
 
@@ -220,7 +223,7 @@ body{-webkit-font-smoothing:antialiased}
   background:linear-gradient(135deg,#fff 0%,#4FD4E2 60%,#1FAE97 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .demoholder .what{font-size:clamp(18px,2.3vw,34px);font-weight:600;color:#fff;margin-top:10px}
 .cta-pill{display:inline-flex;align-items:center;gap:14px;margin-top:38px;background:#fff;color:var(--teal-dark);
-  font-size:clamp(16px,1.9vw,26px);font-weight:800;padding:16px 30px;border-radius:999px;
+  font-size:clamp(14px,min(1.9vw,3vh),26px);font-weight:800;padding:16px 30px;border-radius:999px;
   box-shadow:0 14px 40px rgba(0,0,0,.3);text-decoration:none;transition:.25s;position:relative;z-index:2}
 .cta-pill:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 20px 50px rgba(0,0,0,.4)}
 .cta-pill .arrow{display:inline-flex;width:34px;height:34px;border-radius:50%;background:var(--grad-soft);
