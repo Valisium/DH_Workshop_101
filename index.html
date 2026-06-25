@@ -209,6 +209,37 @@ body{-webkit-font-smoothing:antialiased}
   background:var(--grad-hero);-webkit-background-clip:text;background-clip:text;color:transparent}
 
 
+
+/* ============ TITLE HERO (slide 1 only) ============ */
+.title-hero{overflow:hidden}
+.hero-logo-wrap{display:inline-flex;padding:clamp(22px,3.4vh,40px) clamp(30px,4vw,60px);
+  background:rgba(255,255,255,.96);border-radius:28px;
+  box-shadow:0 30px 80px rgba(0,0,0,.32),0 0 0 1px rgba(255,255,255,.4),0 0 60px rgba(79,212,226,.35);
+  margin-bottom:clamp(14px,2.4vh,28px);animation:logoFloat 6s ease-in-out infinite}
+.hero-logo{height:clamp(70px,15vh,150px);width:auto;display:block}
+@keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+/* limelight glow pulsing behind the logo */
+.hero-glow{position:absolute;top:34%;left:50%;width:60vh;height:60vh;transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(79,212,226,.28),rgba(31,174,151,.12) 45%,transparent 70%);
+  pointer-events:none;animation:glowPulse 5s ease-in-out infinite;z-index:0}
+@keyframes glowPulse{0%,100%{opacity:.6;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.12)}}
+/* faint moving grid for depth */
+.hero-grid{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.35;
+  background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+  background-size:54px 54px;mask-image:radial-gradient(circle at 50% 40%,#000,transparent 78%);
+  -webkit-mask-image:radial-gradient(circle at 50% 40%,#000,transparent 78%);animation:gridDrift 24s linear infinite}
+@keyframes gridDrift{from{background-position:0 0}to{background-position:54px 54px}}
+.title-hero .slide-body,.title-hero .cover-tag{position:relative;z-index:2}
+/* floating sparkles */
+.spark{position:absolute;width:8px;height:8px;border-radius:50%;background:rgba(79,212,226,.9);
+  box-shadow:0 0 12px rgba(79,212,226,.9);z-index:1;animation:sparkle 7s ease-in-out infinite}
+.spark.s1{top:22%;left:16%;animation-delay:0s}
+.spark.s2{top:30%;right:18%;width:6px;height:6px;animation-delay:1.4s}
+.spark.s3{bottom:26%;left:24%;width:5px;height:5px;animation-delay:2.6s}
+.spark.s4{bottom:32%;right:22%;animation-delay:3.6s}
+.spark.s5{top:18%;left:46%;width:5px;height:5px;animation-delay:4.8s}
+@keyframes sparkle{0%,100%{opacity:0;transform:translateY(0) scale(.6)}40%{opacity:1;transform:translateY(-14px) scale(1)}60%{opacity:1}80%{opacity:0;transform:translateY(-26px) scale(.7)}}
+
 /* ============ SAFE SLIDE BACKGROUND SHIELD ============ */
 .shield-bg{position:absolute;right:-3vw;top:50%;transform:translateY(-50%);
   height:min(86vh,860px);width:auto;opacity:.07;pointer-events:none;z-index:0;
@@ -312,17 +343,20 @@ const SLIDES = [
 
 /* 1. TITLE */
 {nav:'Title', html:`
-<div class="slide dark cover">
-  <div class="orb" style="width:46vh;height:46vh;background:radial-gradient(circle,rgba(79,212,226,.5),transparent 70%);top:-14vh;right:-8vw;animation:floaty 9s ease-in-out infinite"></div>
-  <div class="orb" style="width:34vh;height:34vh;background:radial-gradient(circle,rgba(31,174,151,.55),transparent 70%);bottom:-10vh;left:-6vw;animation:floaty 11s ease-in-out infinite reverse"></div>
-  ${topbar('<span style="color:rgba(255,255,255,.85)">Digital Heroes</span>')}
-  <div class="slide-body">
-    <div class="lozenge fade d1" style="align-self:flex-start;margin-bottom:26px">${swirlInline()} Workshops &amp; Training</div>
-    <div class="eyebrow fade d2" style="color:var(--teal-bright);margin-bottom:14px">Session 101</div>
-    <h1 class="h1 fade d3">Copilot Chat:<br>Your Foundation</h1>
-    <p class="cover-sub fade d4">Your first hour with Copilot Chat, from licence to three quick wins.</p>
+<div class="slide dark cover title-hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="orb" style="width:52vh;height:52vh;background:radial-gradient(circle,rgba(79,212,226,.45),transparent 70%);top:-16vh;right:-10vw;animation:floaty 9s ease-in-out infinite"></div>
+  <div class="orb" style="width:40vh;height:40vh;background:radial-gradient(circle,rgba(31,174,151,.5),transparent 70%);bottom:-12vh;left:-8vw;animation:floaty 11s ease-in-out infinite reverse"></div>
+  <div class="spark s1"></div><div class="spark s2"></div><div class="spark s3"></div><div class="spark s4"></div><div class="spark s5"></div>
+  <div class="slide-body" style="align-items:center;text-align:center;justify-content:center">
+    <div class="hero-logo-wrap fade d1"><img class="hero-logo" src="${LOGO}" alt="Digital Heroes"></div>
+    <div class="lozenge fade d2" style="margin:6px 0 22px">${swirlInline()} Workshops &amp; Training</div>
+    <div class="eyebrow fade d3" style="color:var(--teal-bright);margin-bottom:12px">Session 101</div>
+    <h1 class="h1 fade d4" style="max-width:20ch">Copilot Chat: Your Foundation</h1>
+    <p class="cover-sub fade d5" style="margin-top:16px;max-width:48ch">Your first hour with Copilot Chat, from licence to three quick wins.</p>
   </div>
-  <div class="cover-tag fade d5">Be Curious. Be Creative. Be a Digital Hero.</div>
+  <div class="cover-tag fade d6" style="align-self:center;text-align:center;width:100%">Be Curious. Be Creative. Be a Digital Hero.</div>
 </div>`},
 
 /* 2. AGENDA */
