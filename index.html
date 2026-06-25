@@ -208,6 +208,15 @@ body{-webkit-font-smoothing:antialiased}
 .stat-num{font-size:clamp(40px,6vw,92px);font-weight:800;letter-spacing:-.03em;line-height:1;
   background:var(--grad-hero);-webkit-background-clip:text;background-clip:text;color:transparent}
 
+
+/* ============ SAFE SLIDE BACKGROUND SHIELD ============ */
+.shield-bg{position:absolute;right:-3vw;top:50%;transform:translateY(-50%);
+  height:min(86vh,860px);width:auto;opacity:.07;pointer-events:none;z-index:0;
+  filter:saturate(.9);animation:shieldIn 1.1s ease both}
+@keyframes shieldIn{from{opacity:0;transform:translateY(-50%) scale(.94)}to{opacity:.07;transform:translateY(-50%) scale(1)}}
+/* keep slide content above the watermark */
+.slide .topbar,.slide .slide-body,.slide .banner{position:relative;z-index:1}
+
 /* ============ LIVE DEMO PLACEHOLDER SLIDE ============ */
 .demoholder .slide-body{justify-content:center;align-items:center;text-align:center}
 .demoholder .pulse-ring{position:absolute;width:62vh;height:62vh;border-radius:50%;
@@ -377,11 +386,12 @@ const SLIDES = [
 /* 6. CONCEPT: safe */
 {nav:'Green tick', html:`
 <div class="slide">
+  <img class="shield-bg" src="${SHIELD_GREEN}" alt="">
   ${topbar('Safe and secure')}
   <div class="slide-body">
     <h2 class="h2 fade" style="margin-bottom:clamp(12px,2.2vh,26px)">You are in a safe space</h2>
     <div class="grid g3">
-      <div class="card fade d2"><div class="edge"></div><div class="ico" style="background:none;box-shadow:none;width:auto;height:clamp(58px,6vw,84px)"><img src="${SHIELD_TEAL}" alt="Safe and secure" style="height:100%;width:auto"></div><h4>Look for the green tick</h4><p>Enterprise data protection. Nothing is shared externally, nobody else sees what you type, and you can treat it as private.</p></div>
+      <div class="card fade d2"><div class="edge"></div><div class="ico">${I.shield}</div><h4>Look for the green tick <span class="tick">✓</span></h4><p>Enterprise data protection. Nothing is shared externally, nobody else sees what you type, and you can treat it as private.</p></div>
       <div class="card fade d3"><div class="edge"></div><div class="ico">${I.grid}</div><h4>Work mode or Web mode</h4><p>Work mode searches your Whitbread world. Web mode searches the open internet. Choose the one that fits the task.</p></div>
       <div class="card fade d4"><div class="edge"></div><div class="ico">${I.lock}</div><h4>The golden rule</h4><p>Never put Whitbread information into other public AI tools such as ChatGPT or Gemini. Bring it here instead.</p></div>
     </div>
